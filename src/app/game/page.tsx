@@ -37,7 +37,7 @@ export default function GamePage() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-6">
       <div className="mb-5 flex items-center justify-between">
-        <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-[1.7rem]">Kure Oyunu</h1>
+        <h1 className="text-2xl font-black tracking-tight text-slate-900 sm:text-[1.7rem]">KEREM&apos;in küre oyunu</h1>
         <Link
           href="/"
           className="rounded-xl border border-slate-300/70 bg-gradient-to-b from-white to-slate-100 px-3 py-2 text-sm font-semibold text-slate-800 shadow-[0_6px_14px_rgba(15,23,42,0.1),inset_0_1px_0_rgba(255,255,255,0.85)] transition hover:border-slate-400"
