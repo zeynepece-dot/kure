@@ -1,0 +1,19 @@
+KURE OYUN KURALLARI (PDF'DEN METNE DONUSTURULMUS OZET)
+
+Birincil kaynak: /docs/kurallar.pdf
+Bu dosya, kullanicinin paylastigi metin transkriptidir.
+
+1) Isvicre eslendirme sistemi.
+2) Baslangic siralamasi soyisme gore.
+3) Mor ve turuncu taslar baslangic sirasina karsilikli yerlestirilir.
+4) Oyuna mor baslar.
+5) Baslangictaki taslar ileri/capraz ileri 1 adim.
+6) Baslangictan ayrilan tas baslangica donemez.
+7) Baslangic disindaki taslar ileri/geri/capraz 1 adim, yatay yasak.
+8) Ayni oyuncunun taslari yatay/dikey/capraz dortlu olamaz.
+9) Rakip tasi iki tas arasina sikistiran oyuncu o tasi alir.
+10) Rakibin iki tasi arasina giren hamlede sira rakibe gecer, araya giren tas alinmaz.
+11) Hamlede hem mor hem turuncu arada kalirsa hamleyi yapan tas alir.
+12) Rakibin baslangic sirasinda ayni anda en fazla 1 tas.
+13) Rakibin 4 tasini cikaran oyunu kazanir.
+14-24) Uyari, hakem, saat ve turnuva usulleri.
