@@ -31,6 +31,7 @@ interface GameStore {
   tryMoveTo: (to: Position) => void;
   undo: () => void;
   playCpuTurn: () => void;
+  loadSavedGame: (payload: { gameMode: GameMode; difficulty: Difficulty; state: GameState; moveHistory: Move[] }) => void;
 }
 
 function chooseCpuMove(state: GameState, difficulty: Difficulty): Move | null {
@@ -146,6 +147,16 @@ export const useGameStore = create<GameStore>((set, get) => ({
     }
     store.makeMove(cpuMove);
   },
+
+  loadSavedGame: ({ gameMode, difficulty, state, moveHistory }) =>
+    set({
+      gameMode,
+      difficulty,
+      state,
+      moveHistory,
+      selected: null,
+      statusMessage: "Kayitli oyun yuklendi.",
+    }),
 }));
 
 export function isCpuTurn(gameMode: GameMode, currentPlayer: PlayerColor): boolean {

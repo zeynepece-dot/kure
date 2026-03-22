@@ -1,38 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useEffectEvent, useRef } from "react";
 import { GameBoard } from "@/components/GameBoard";
 import { GameControls } from "@/components/GameControls";
 import { MoveHistory } from "@/components/MoveHistory";
 import { GameStatus } from "@/components/GameStatus";
 import { primaryButtonClass } from "@/components/premiumStyles";
+import { SavedGamesPanel } from "@/components/SavedGamesPanel";
 import { isCpuTurn, useGameStore } from "@/store/gameStore";
 import { winnerLabel } from "@/lib/utils/format";
 
 export default function GamePage() {
-  const {
-    gameMode,
-    difficulty,
-    state,
-    selected,
-    statusMessage,
-    moveHistory,
-    setMode,
-    setDifficulty,
-    startNewGame,
-    selectCell,
-    tryMoveTo,
-    playCpuTurn,
-  } = useGameStore();
+  const gameMode = useGameStore((store) => store.gameMode);
+  const difficulty = useGameStore((store) => store.difficulty);
+  const state = useGameStore((store) => store.state);
+  const selected = useGameStore((store) => store.selected);
+  const statusMessage = useGameStore((store) => store.statusMessage);
+  const moveHistory = useGameStore((store) => store.moveHistory);
+  const setMode = useGameStore((store) => store.setMode);
+  const setDifficulty = useGameStore((store) => store.setDifficulty);
+  const startNewGame = useGameStore((store) => store.startNewGame);
+  const selectCell = useGameStore((store) => store.selectCell);
+  const tryMoveTo = useGameStore((store) => store.tryMoveTo);
+  const playCpuTurn = useGameStore((store) => store.playCpuTurn);
+  const loadSavedGame = useGameStore((store) => store.loadSavedGame);
+  const lastScheduledCpuTurnRef = useRef<string | null>(null);
+  const runCpuTurn = useEffectEvent(() => {
+    playCpuTurn();
+  });
 
   useEffect(() => {
     if (!isCpuTurn(gameMode, state.currentPlayer) || state.winner) {
+      lastScheduledCpuTurnRef.current = null;
       return;
     }
-    const timer = setTimeout(() => playCpuTurn(), 300);
+
+    const cpuTurnKey = `${gameMode}:${state.currentPlayer}:${state.moveCount}:${state.winner ?? "none"}`;
+    if (lastScheduledCpuTurnRef.current === cpuTurnKey) {
+      return;
+    }
+
+    lastScheduledCpuTurnRef.current = cpuTurnKey;
+    const timer = setTimeout(() => runCpuTurn(), 300);
     return () => clearTimeout(timer);
-  }, [gameMode, state.currentPlayer, state.winner, playCpuTurn]);
+  }, [gameMode, state.currentPlayer, state.moveCount, state.winner]);
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-6 sm:px-6">
@@ -70,6 +82,13 @@ export default function GamePage() {
           />
           <GameStatus state={state} statusMessage={statusMessage} />
           <MoveHistory moves={moveHistory} />
+          <SavedGamesPanel
+            gameMode={gameMode}
+            difficulty={difficulty}
+            state={state}
+            moveHistory={moveHistory}
+            onLoadGame={loadSavedGame}
+          />
         </div>
       </div>
     </main>
